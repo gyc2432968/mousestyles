@@ -1,0 +1,413 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Documentation and Coding Standards &mdash; mousestyles 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="mousestyles 0.1 documentation" href="../index.html" />
+    <link rel="up" title="Developer documentation" href="index.html" />
+    <link rel="next" title="Set up SSH key" href="HOWTO_SETUP_SSH_KEY.html" />
+    <link rel="prev" title="Contributing" href="contribute.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="documentation-and-coding-standards">
+<h1>Documentation and Coding Standards<a class="headerlink" href="#documentation-and-coding-standards" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="naming-conventions">
+<h2>Naming Conventions<a class="headerlink" href="#naming-conventions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Choose short and concise names that reflect usage</li>
+<li>Never use the characters &#8216;l&#8217; (lowercase letter el), &#8216;O&#8217; (uppercase
+letter oh), or &#8216;I&#8217; (uppercase letter eye) as single character
+variable names</li>
+<li><em>Package and Module Names</em>:</li>
+<li>Use all-lowercase names</li>
+<li>Use underscores when appropriate in module names but not package
+names</li>
+<li><em>Class Names</em>:</li>
+<li>Use <code class="docutils literal"><span class="pre">CapWords</span></code> convention</li>
+<li><em>Function and Variable Names</em>:</li>
+<li><code class="docutils literal"><span class="pre">lower_case_with_underscores</span></code></li>
+<li>Use a descriptive verb in function names</li>
+<li><em>Constants</em>:</li>
+<li>Use all capital letters with underscores separating words (e.g.
+<code class="docutils literal"><span class="pre">YELLOW_MARINE</span></code>)</li>
+</ul>
+</div>
+<div class="section" id="indentation">
+<h2>Indentation<a class="headerlink" href="#indentation" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Use 4 spaces per indentation level</p>
+</li>
+<li><p class="first">Continuation lines should align wrapped elements vertically using
+Python&#8217;s implicit line joining inside parentheses, brackets and
+braces</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Aligned with opening delimiter</span>
+<span class="n">nacho_cheese</span> <span class="o">=</span> <span class="n">not_your_cheese</span><span class="p">(</span><span class="n">cheddar</span><span class="p">,</span> <span class="n">pepperjack</span><span class="p">,</span>
+                               <span class="n">provolone</span><span class="p">,</span> <span class="n">brie</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">The closing brace/bracket/parenthesis on multi-line constructs should
+line up under the first non-whitespace character of the last line of
+list</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">six_afraid_of_seven</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span>
+    <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+    <span class="p">]</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="docstrings">
+<h2>Docstrings<a class="headerlink" href="#docstrings" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">We will be following
+<a class="reference external" href="https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt">numpy</a>
+conventions.</p>
+</li>
+<li><p class="first">What is a Docstring?</p>
+</li>
+<li><p class="first">A docstring is a string literal that occurs as the first statement in
+a module, function, class, or method definition. Such a docstring
+becomes the _<em>doc_</em> special attribute of that object.</p>
+</li>
+<li><p class="first">When do we use docstrings?</p>
+</li>
+<li><p class="first">All modules should normally have docstrings, and all functions and
+classes exported by a module should also have docstrings. Public
+methods (including the _<em>init_</em> constructor) should also have
+docstrings. A package may be documented in the module docstring of
+the _<em>init_</em>.py file in the package directory.</p>
+</li>
+<li><p class="first">Formatting by type of object</p>
+</li>
+<li><p class="first">The docstring of a <strong>script</strong> should be usable as its &#8220;usage&#8221;
+message, printed when the script is invoked with incorrect or missing
+arguments. Such a docstring should document the script&#8217;s function and
+command line syntax, environment variables, and files. Usage messages
+should be sufficient for a new user to use the command properly, as
+well as a complete quick reference to all options and arguments for
+the sophisticated user.</p>
+</li>
+<li><p class="first">If the stand-alone script uses another module for handling options,
+such as the argparse module, then option information is moved from
+the docstring to the module&#8217;s utilities.</p>
+</li>
+<li><p class="first">The docstring for a <strong>module</strong> should generally list the classes,
+exceptions, and functions that are exported by the module, with a
+one-line summary of each.</p>
+</li>
+<li><p class="first">The docstring for a <strong>package</strong> (i.e., the _<em>init_</em>.py module)
+should also list the modules and subpackages exported by the package.</p>
+</li>
+<li><p class="first">The docstring of a <strong>function</strong> or <strong>method</strong> is a phrase ending in a
+period. It prescribes the function or method&#8217;s effect as a command
+(&#8220;Do this&#8221;, &#8220;Return that&#8221;), not as a description; e.g. don&#8217;t write
+&#8220;Returns the pathname ...&#8221;. A multiline-docstring for a function or
+method should summarize its behavior and document its arguments,
+return value(s), side effects, exceptions raised, and restrictions on
+when it can be called. Optional arguments should be indicated. It
+should be documented whether keyword arguments are part of the
+interface.</p>
+</li>
+<li><p class="first">The docstring for a <strong>class</strong> should summarize its behavior and list
+the public methods and instance variables. If the class is intended
+to be subclassed, and has an additional interface for subclasses,
+this interface should be listed separately. The class constructor
+should be documented in the docstring for its _<em>init_</em> method.
+Individual methods should be documented by their own docstring.</p>
+</li>
+<li><p class="first">Example docstring</p>
+</li>
+<li><p class="first">For consistency, always use <code class="docutils literal"><span class="pre">&quot;&quot;&quot;triple</span> <span class="pre">double</span> <span class="pre">quotes&quot;&quot;&quot;</span></code> around
+docstrings. Use <code class="docutils literal"><span class="pre">r&quot;&quot;&quot;raw</span> <span class="pre">triple</span> <span class="pre">double</span> <span class="pre">quotes&quot;&quot;&quot;</span></code> if you use any
+backslashes in your docstrings. For Unicode docstrings, use
+<code class="docutils literal"><span class="pre">u&quot;&quot;&quot;Unicode</span> <span class="pre">triple-quoted</span> <span class="pre">strings&quot;&quot;&quot;</span></code> .</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">var1</span><span class="p">,</span> <span class="n">var2</span><span class="p">,</span> <span class="n">long_var_name</span><span class="o">=</span><span class="s1">&#39;hi&#39;</span><span class="p">)</span> <span class="p">:</span>
+    <span class="sd">r&quot;&quot;&quot;A one-line summary that does not use variable names or the</span>
+<span class="sd">    function name.</span>
+
+<span class="sd">    Several sentences providing an extended description. Refer to</span>
+<span class="sd">    variables using back-ticks, e.g. `var`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    var1 : array_like</span>
+<span class="sd">        Array_like means all those objects -- lists, nested lists, etc. --</span>
+<span class="sd">        that can be converted to an array.  We can also refer to</span>
+<span class="sd">        variables like `var1`.</span>
+<span class="sd">    var2 : int</span>
+<span class="sd">        The type above can either refer to an actual Python type</span>
+<span class="sd">        (e.g. ``int``), or describe the type of the variable in more</span>
+<span class="sd">        detail, e.g. ``(N,) ndarray`` or ``array_like``.</span>
+<span class="sd">    long_var_name : {&#39;hi&#39;, &#39;ho&#39;}, optional</span>
+<span class="sd">        Choices in brackets, default first when optional.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    type</span>
+<span class="sd">        Explanation of anonymous return value of type ``type``.</span>
+<span class="sd">    describe : type</span>
+<span class="sd">        Explanation of return value named `describe`.</span>
+<span class="sd">    out : type</span>
+<span class="sd">        Explanation of `out`.</span>
+
+<span class="sd">    Other Parameters</span>
+<span class="sd">    ----------------</span>
+<span class="sd">    only_seldom_used_keywords : type</span>
+<span class="sd">        Explanation</span>
+<span class="sd">    common_parameters_listed_above : type</span>
+<span class="sd">        Explanation</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    BadException</span>
+<span class="sd">        Because you shouldn&#39;t have done that.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    otherfunc : relationship (optional)</span>
+<span class="sd">    newfunc : Relationship (optional), which could be fairly long, in which</span>
+<span class="sd">        case the line wraps here.</span>
+<span class="sd">    thirdfunc, fourthfunc, fifthfunc</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Notes about the implementation algorithm (if needed).</span>
+
+<span class="sd">    This can have multiple paragraphs.</span>
+
+<span class="sd">    You may include some math:</span>
+
+<span class="sd">    .. math:: X(e^{j\omega } ) = x(n)e^{ - j\omega n}</span>
+
+<span class="sd">    And even use a greek symbol like :math:`omega` inline.</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------</span>
+<span class="sd">    Cite the relevant literature, e.g. [1]_.  You may also cite these</span>
+<span class="sd">    references in the notes section above.</span>
+
+<span class="sd">    .. [1] O. McNoleg, &quot;The integration of GIS, remote sensing,</span>
+<span class="sd">        expert systems and adaptive co-kriging for environmental habitat</span>
+<span class="sd">        modelling of the Highland Haggis using object-oriented, fuzzy-logic</span>
+<span class="sd">        and neural-network techniques,&quot; Computers &amp; Geosciences, vol. 22,</span>
+<span class="sd">        pp. 585-588, 1996.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    These are written in doctest format, and should illustrate how to</span>
+<span class="sd">    use the function.</span>
+
+<span class="sd">    &gt;&gt;&gt; a=[1,2,3]</span>
+<span class="sd">    &gt;&gt;&gt; print [x + 3 for x in a]</span>
+<span class="sd">    [4, 5, 6]</span>
+<span class="sd">    &gt;&gt;&gt; print &quot;a\n\nb&quot;</span>
+<span class="sd">    a</span>
+<span class="sd">    b</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">pass</span>
+
+    <span class="o">...</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="comments">
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Use complete sentences; if a comment is a phrase or sentence, its
+first word should be capitalized, unless it is an identifier that
+begins with a lowercase letter</li>
+<li>Use two spaces after a sentence-ending period</li>
+<li>Indent block comments to the same level as the code below; start each
+line of a block comment with a # and a single space (unless it is
+indented text inside the comment)</li>
+<li>Separate paragraphs inside a block comment by a line containing a
+single #</li>
+</ul>
+<p><code class="docutils literal"><span class="pre">python</span>&nbsp;&nbsp; <span class="pre">#</span> <span class="pre">How</span> <span class="pre">dows</span> <span class="pre">a</span> <span class="pre">mouse</span> <span class="pre">feel</span> <span class="pre">after</span> <span class="pre">it</span> <span class="pre">takes</span> <span class="pre">a</span> <span class="pre">shower?</span>&nbsp;&nbsp; <span class="pre">#</span> <span class="pre">Squeaky</span> <span class="pre">clean.</span>&nbsp;&nbsp; <span class="pre">#</span>&nbsp;&nbsp;&nbsp; <span class="pre">#</span> <span class="pre">How</span> <span class="pre">do</span> <span class="pre">you</span> <span class="pre">save</span> <span class="pre">a</span> <span class="pre">drowning</span> <span class="pre">mouse?</span>&nbsp;&nbsp; <span class="pre">#</span> <span class="pre">Use</span> <span class="pre">mouse</span> <span class="pre">to</span> <span class="pre">mouse</span> <span class="pre">resuscitation.</span>&nbsp;&nbsp; <span class="pre">not_your_cheese(marscapone,</span> <span class="pre">maasdam,</span> <span class="pre">camembert,</span> <span class="pre">roquefort)</span></code>
+- Use inline comments sparingly</p>
+<p><code class="docutils literal"><span class="pre">python</span>&nbsp;&nbsp; <span class="pre">not_your_cheese(gorgonzola,</span> <span class="pre">munster,</span> <span class="pre">limburger,</span> <span class="pre">doppelrhamstufel)</span> <span class="pre">#</span> <span class="pre">Not</span> <span class="pre">your</span> <span class="pre">cheese,</span> <span class="pre">my</span> <span class="pre">cheese.</span></code></p>
+<div id='blank-lines'/></div>
+<div class="section" id="blank-lines">
+<h2>Blank Lines<a class="headerlink" href="#blank-lines" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Surround top-level function and class definitions with two blank
+lines</li>
+<li>Surround method definitions inside a class with a single blank line</li>
+<li>Use extra blank lines sparingly to separate groups of related
+functions; omit blank lines between related one-liners (e.g. a set of
+dummy implementations) if desired</li>
+<li>Use blank lines in functions sparingly to indicate logical sections</li>
+</ul>
+<div id='whitespace'/></div>
+<div class="section" id="whitespace">
+<h2>Whitespace<a class="headerlink" href="#whitespace" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Avoid extraneous whitespace:</li>
+<li>Immediately inside parentheses, brackets, or braces</li>
+<li>Immediately before a comma, semicolon, or colon</li>
+<li>Immediately before the open parenthesis that starts the argument list
+of a function call</li>
+<li>Immediately before the open parenthesis that starts an indexing or
+slicing</li>
+<li>More than one space around an assignment (or other) operator to align
+it with another</li>
+<li>Always surround these binary operators with a single space on either
+side: assignment ( = ), augmented assignment ( += , -= etc.),
+comparisons ( == , &lt; , &gt; , != , &lt;&gt; , &lt;= , &gt;= , in , not in , is , is
+not ), Booleans ( and , or , not )</li>
+<li>If operators with different priorities are used, consider adding
+whitespace around the operators with the lowest priority(ies); never
+use more than one space, and always have the same amount of
+whitespace on both sides of a binary operator</li>
+</ul>
+<p><code class="docutils literal"><span class="pre">python</span>&nbsp;&nbsp; <span class="pre">eyes</span> <span class="pre">=</span> <span class="pre">e</span> <span class="pre">+</span> <span class="pre">yes</span>&nbsp;&nbsp; <span class="pre">cyclops</span> <span class="pre">=</span> <span class="pre">eyes*4</span> <span class="pre">-</span> <span class="pre">3</span>&nbsp;&nbsp; <span class="pre">c</span> <span class="pre">=</span> <span class="pre">(a+b)</span> <span class="pre">*</span> <span class="pre">(a-b)</span></code> -
+Do not use spaces around the = sign when used to indicate a keyword
+argument or a default parameter value</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>```python
+</pre></div>
+</div>
+<p>def not_your_cheese(cheese1=smelly, cheese2=stinky, cheese3=noxious,
+cheese4=bad) return my_cheese(r=real, i=imag) ``` - Avoid compound
+statements (multiple statements on the same line) - Never put an
+if/for/while with a multi-clause statement on the same line</p>
+</div>
+<div class="section" id="string-quotes">
+<h2>String Quotes<a class="headerlink" href="#string-quotes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Generally, use double-quotes for strings, but if a string contains a
+double-quote, then use single quotes</li>
+<li>Keep string quotes consistent for readability</li>
+</ul>
+</div>
+<div class="section" id="imports">
+<h2>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Put imports on separate lines, e.g.:</li>
+</ul>
+<p><code class="docutils literal"><span class="pre">python</span>&nbsp;&nbsp; <span class="pre">import</span> <span class="pre">os</span>&nbsp;&nbsp; <span class="pre">import</span> <span class="pre">sys</span>&nbsp;&nbsp; <span class="pre">from</span> <span class="pre">subprocess</span> <span class="pre">import</span> <span class="pre">Popen,</span> <span class="pre">PIPE</span></code>
+- Put imports at the top of the file, just after any module comments and
+docstrings, and before module globals and constants - Avoid wildcard
+imports ( from import * ) as they make it unclear which names are
+present in the namespace, confusing both readers and many automated
+tools</p>
+</div>
+<div class="section" id="maximum-line-length">
+<h2>Maximum Line Length<a class="headerlink" href="#maximum-line-length" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Limit all lines to a maximum of 79 characters</li>
+<li>Use backslashes when implicit continuation fails</li>
+</ul>
+<p><code class="docutils literal"><span class="pre">python</span>&nbsp;&nbsp; <span class="pre">with</span> <span class="pre">open(&quot;/why/did/the/chicken/cross/the/road&quot;)</span> <span class="pre">as</span> <span class="pre">chicken,</span> <span class="pre">\</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="pre">open(&quot;/to/get/to/the/other/side&quot;,</span> <span class="pre">&quot;w&quot;)</span> <span class="pre">as</span> <span class="pre">waffles:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="pre">waffles.write(chicken.read())</span></code></p>
+<p>For more information, please refer to: <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">Style Guide for Python
+Code</a> and <a class="reference external" href="https://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt">Docstring
+Guide</a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Documentation and Coding Standards</a><ul>
+<li><a class="reference internal" href="#naming-conventions">Naming Conventions</a></li>
+<li><a class="reference internal" href="#indentation">Indentation</a></li>
+<li><a class="reference internal" href="#docstrings">Docstrings</a></li>
+<li><a class="reference internal" href="#comments">Comments</a></li>
+<li><a class="reference internal" href="#blank-lines">Blank Lines</a></li>
+<li><a class="reference internal" href="#whitespace">Whitespace</a></li>
+<li><a class="reference internal" href="#string-quotes">String Quotes</a></li>
+<li><a class="reference internal" href="#imports">Imports</a></li>
+<li><a class="reference internal" href="#maximum-line-length">Maximum Line Length</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Developer documentation</a><ul>
+      <li>Previous: <a href="contribute.html" title="previous chapter">Contributing</a></li>
+      <li>Next: <a href="HOWTO_SETUP_SSH_KEY.html" title="next chapter">Set up SSH key</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/develop/DOCFLOW.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, 2016 UC Berkeley MA students.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/develop/DOCFLOW.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Writing tests &mdash; mousestyles 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="mousestyles 0.1 documentation" href="../index.html" />
+    <link rel="up" title="Developer documentation" href="index.html" />
+    <link rel="prev" title="Set up SSH key" href="HOWTO_SETUP_SSH_KEY.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="writing-tests">
+<h1>Writing tests<a class="headerlink" href="#writing-tests" title="Permalink to this headline">¶</a></h1>
+<p>We need to create unit tests for each module and test each function of
+the module For example, suppose we have a file called <em>data_utils.py</em>
+with two functions <em>pull_locom_tseries_subset</em> and
+<em>total_time_rectangle_bins</em>, we should have a corresponding test file
+called <em>test_data_utils.py</em> with the <em>data_utils.py</em> imported and
+have two corresponding test functions called <em>test_pull_locom</em> and
+<em>test_total_time</em>.</p>
+<div class="section" id="what-aspects-of-a-function-need-to-be-tested">
+<h2>What aspects of a function need to be tested:<a class="headerlink" href="#what-aspects-of-a-function-need-to-be-tested" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>check if it returns correct type of object</li>
+<li>check if it returns correct dimension</li>
+<li>check if it returns the correct value, by<ul>
+<li>prior knowledge</li>
+<li>different implementation: i.e. use R vs Python; use Var(X) vs.
+E(X^2) - E(X)^2</li>
+<li>theoretical derivation</li>
+</ul>
+</li>
+<li>&#8220;regression&#8221;: if the function is improved (by speed, efficiency)
+while has same functionality, check the output is the same with older
+version.</li>
+<li>assert errors occured: i.e. when the function takes three arguements
+while we only give two, make sure the function will throw an error
+message</li>
+</ul>
+</div>
+<div class="section" id="useful-command">
+<h2>Useful Command:<a class="headerlink" href="#useful-command" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">numpy.testing</span> <span class="k">import</span> <span class="n">assert_almost_equal</span><span class="p">,</span> <span class="n">assert_equal</span><span class="p">,</span> <span class="n">assert_array_equal</span><span class="p">,</span> <span class="n">assert_array_almost_equal</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="styles">
+<h2>Styles:<a class="headerlink" href="#styles" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>actual: the actual output of the function being tested</li>
+<li>expected: the expected output according to prior knowledge or
+obtained through other methods</li>
+<li>assert_equal(actual, expected)</li>
+</ul>
+</div>
+<div class="section" id="examples-test-data-utils-py">
+<h2>Examples: <a class="reference external" href="https://github.com/berkeley-stat222/mousestyles">*test_data_utils.py*</a><a class="headerlink" href="#examples-test-data-utils-py" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="run-the-tests-with-the-command-make-test">
+<h2>Run the tests with the command: <code class="docutils literal"><span class="pre">make</span> <span class="pre">test</span></code><a class="headerlink" href="#run-the-tests-with-the-command-make-test" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Writing tests</a><ul>
+<li><a class="reference internal" href="#what-aspects-of-a-function-need-to-be-tested">What aspects of a function need to be tested:</a></li>
+<li><a class="reference internal" href="#useful-command">Useful Command:</a></li>
+<li><a class="reference internal" href="#styles">Styles:</a></li>
+<li><a class="reference internal" href="#examples-test-data-utils-py">Examples: *test_data_utils.py*</a></li>
+<li><a class="reference internal" href="#run-the-tests-with-the-command-make-test">Run the tests with the command: <code class="docutils literal"><span class="pre">make</span> <span class="pre">test</span></code></a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Developer documentation</a><ul>
+      <li>Previous: <a href="HOWTO_SETUP_SSH_KEY.html" title="previous chapter">Set up SSH key</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/develop/TESTFLOW.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, 2016 UC Berkeley MA students.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/develop/TESTFLOW.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

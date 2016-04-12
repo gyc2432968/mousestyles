@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Contributing &mdash; mousestyles 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="mousestyles 0.1 documentation" href="../index.html" />
+    <link rel="up" title="Developer documentation" href="index.html" />
+    <link rel="next" title="Documentation and Coding Standards" href="DOCFLOW.html" />
+    <link rel="prev" title="Developer documentation" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="contributing">
+<h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="development-process">
+<h2>Development process<a class="headerlink" href="#development-process" title="Permalink to this headline">¶</a></h2>
+<p>Here&#8217;s the long and short of it:</p>
+<ol class="arabic">
+<li><p class="first">If you are a first-time contributor:</p>
+<ul>
+<li><p class="first">Go to <a class="reference external" href="http://github.com/berkeley-stat222/mousestyles">https://github.com/berkeley-stat222/mousestyles</a> and click the
+&#8220;fork&#8221; button to create your own copy of the project.</p>
+</li>
+<li><p class="first">Clone the project to your local computer:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="o">*</span><span class="n">your</span><span class="o">-</span><span class="n">Github</span><span class="o">-</span><span class="n">username</span><span class="o">*/</span><span class="n">mousestyles</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Add the upstream repository:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">upstream</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">berkeley</span><span class="o">-</span><span class="n">stat222</span><span class="o">/</span><span class="n">mousestyles</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Now, you have remote repositories named:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">upstream</span></code>, which refers to the <code class="docutils literal"><span class="pre">berkeley-stat222/mousestyles</span></code> repository</li>
+<li><code class="docutils literal"><span class="pre">origin</span></code>, which refers to your personal fork</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</li>
+<li><p class="first">Develop your contribution:</p>
+<ul>
+<li><p class="first">Pull the latest changes from upstream:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="n">master</span>
+<span class="n">git</span> <span class="n">pull</span> <span class="n">upstream</span> <span class="n">master</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Create a branch for the feature you want to work on. Since the
+branch name will appear in the merge message, use a sensible name based on the feature you want to improve or add such as &#8216;<em>feature</em>-issue#<em>number</em>&#8216; (e.g. <code class="docutils literal"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">-b</span> <span class="pre">contributing-issue#14</span></code>):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">contributing</span><span class="o">-</span><span class="n">issue</span><span class="c1">#14</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Commit locally as you progress (<code class="docutils literal"><span class="pre">git</span> <span class="pre">add</span></code> and <code class="docutils literal"><span class="pre">git</span>
+<span class="pre">commit</span></code>). It is highly recommended that you use the provided
+pre-commit hook (described in the <a class="reference external" href="https://https://github.com/berkeley-stat222/mousestyles/blob/master/tools/README.md">tools README</a>), which automatically runs tests and style checks before every commit. This way, you can see if Travis (described below) will fail before you push.</p>
+</li>
+</ul>
+</li>
+<li><p class="first">To submit your contribution:</p>
+<ul>
+<li><p class="first">Push your changes back to your fork on GitHub:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">contributing</span><span class="o">-</span><span class="n">issue</span><span class="c1">#14</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Go to GitHub. The new branch will show up with a green Pull Request
+button - click it.</p>
+</li>
+<li><p class="first">If you want, comment on the <a class="reference external" href="https://github.com/berkeley-stat222/mousestyles/issues/issue#*number*">issue posting in Github</a> to explain your changes or
+to ask for review.</p>
+</li>
+</ul>
+</li>
+<li><p class="first">Review process:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Reviewers (the other developers and interested community members) will
+write inline and/or general comments on your Pull Request (PR) to help
+you improve its implementation, documentation and style.  Every single
+developer working on the project has their code reviewed, and we&#8217;ve come
+to see it as friendly conversation from which we all learn and the
+overall code quality benefits.  Therefore, please don&#8217;t let the review
+discourage you from contributing: its only aim is to improve the quality
+of project, not to criticize (we are, after all, very grateful for the
+time you&#8217;re donating!).</li>
+<li>To update your pull request, make your changes on your local repository
+and commit. As soon as those changes are pushed up (to the same branch as
+before) the pull request will update automatically.</li>
+<li><a class="reference external" href="http://travis-ci.org/">Travis-CI</a>, a continuous integration service,
+is triggered after each Pull Request update to build the code, run unit
+tests, measure code coverage and check coding style (PEP8) of your
+branch. The Travis tests must pass before your PR can be merged. If
+Travis fails, you can find out why by clicking on the &#8220;failed&#8221; icon (red
+cross) and inspecting the build and test log.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Document changes</p>
+<blockquote>
+<div><p>Before merging your commits, you must add a description of your changes
+to the release notes of the upcoming version in
+<code class="docutils literal"><span class="pre">doc/release/release_dev.rst</span></code>.</p>
+</div></blockquote>
+</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To reviewers: if it is not obvious, add a short explanation of what a branch
+did to the merge message and, if closing a bug, also add &#8220;Closes #14&#8221;
+where 14 is the issue number.</p>
+</div>
+</div>
+<div class="section" id="divergence-between-upstream-master-and-your-feature-branch">
+<h2>Divergence between <code class="docutils literal"><span class="pre">upstream</span> <span class="pre">master</span></code> and your feature branch<a class="headerlink" href="#divergence-between-upstream-master-and-your-feature-branch" title="Permalink to this headline">¶</a></h2>
+<p>Do <em>not</em> ever merge the main branch into yours. If GitHub indicates that the
+branch of your Pull Request can no longer be merged automatically, rebase
+onto master:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="n">master</span>
+<span class="n">git</span> <span class="n">pull</span> <span class="n">upstream</span> <span class="n">master</span>
+<span class="n">git</span> <span class="n">checkout</span> <span class="n">contributing</span><span class="o">-</span><span class="n">issue</span><span class="c1">#14</span>
+<span class="n">git</span> <span class="n">rebase</span> <span class="n">master</span>
+</pre></div>
+</div>
+<p>If any conflicts occur in (e.g. conflict-file1 and conflict-file2), fix the according files and continue:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">add</span> <span class="n">conflict</span><span class="o">-</span><span class="n">file1</span> <span class="n">conflict</span><span class="o">-</span><span class="n">file2</span>
+<span class="n">git</span> <span class="n">rebase</span> <span class="o">--</span><span class="k">continue</span>
+</pre></div>
+</div>
+<p>Help in resolving merge conflicts is provided <a class="reference external" href="https://help.github.com/articles/resolving-a-merge-conflict-from-the-command-line/">here</a>.</p>
+<p>In some cases, you&#8217;ll want to edit your history while rebasing. This
+can be accomplished with the <code class="docutils literal"><span class="pre">-i</span></code> or <code class="docutils literal"><span class="pre">--interactive</span></code> option of
+<code class="docutils literal"><span class="pre">git</span> <span class="pre">rebase</span></code>. Running <code class="docutils literal"><span class="pre">rebase</span></code> with this option will open a text
+editor, where you can choose to remove or edit some commits, or squash
+several together. This allows you to (for example) edit commit
+messages, or merge together repetitive small commits like &#8220;fixed
+typo.&#8221; See this <a class="reference external" href="https://robots.thoughtbot.com/git-interactive-rebase-squash-amend-rewriting-history">tutorial</a>
+for more details.</p>
+<p>Note: you should only rebase your own branches and must generally not
+rebase any branch which you collaborate on with someone else.</p>
+<p>Finally, you must push your rebased branch:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">push</span> <span class="o">--</span><span class="n">force</span> <span class="n">origin</span> <span class="n">contributing</span><span class="o">-</span><span class="n">issue</span><span class="c1">#14</span>
+</pre></div>
+</div>
+<p>(If you are curious, here&#8217;s a further discussion on the
+<a class="reference external" href="http://tinyurl.com/lll385">dangers of rebasing</a>.
+Also see this <a class="reference external" href="http://tinyurl.com/nqcbkj">LWN article</a>.)</p>
+</div>
+<div class="section" id="guidelines">
+<h2>Guidelines<a class="headerlink" href="#guidelines" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>All code should have tests (see <a class="reference internal" href="#test-coverage">test coverage</a> below for more details).</li>
+<li>All code should be documented, to the same
+<a class="reference external" href="http://github.com/numpy/numpy/blob/master/doc/HOWTO_DOCUMENT.rst.txt#docstring-standard">standard</a>
+as NumPy and SciPy.</li>
+<li>No changes are ever committed without review.  Ask on the
+<a class="reference external" href="http://groups.google.com/group/mousestyles">mailing list</a> if
+you get no response to your pull request.
+<strong>Never merge your own pull request.</strong></li>
+</ul>
+</div>
+<div class="section" id="stylistic-guidelines">
+<h2>Stylistic Guidelines<a class="headerlink" href="#stylistic-guidelines" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Set up your editor to remove trailing whitespace.  Follow <a class="reference external" href="www.python.org/dev/peps/pep-0008/">PEP08</a>.  Check code with pyflakes / flake8.</p>
+</li>
+<li><p class="first">Use numpy data types instead of strings (<code class="docutils literal"><span class="pre">np.uint8</span></code> instead of
+<code class="docutils literal"><span class="pre">&quot;uint8&quot;</span></code>).</p>
+</li>
+<li><p class="first">Use the following import conventions:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">cimport</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">cnp</span> <span class="c1"># in Cython code</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="commit-message-codes">
+<h2>Commit message codes<a class="headerlink" href="#commit-message-codes" title="Permalink to this headline">¶</a></h2>
+<p>Please prefix all commit summaries with one (or more) of the following labels.
+This should help others to easily classify the commits into meaningful
+categories:</p>
+<ul class="simple">
+<li><em>BUG</em> : bug fix</li>
+<li><em>RFT</em> : refactoring</li>
+<li><em>ENH</em> : new feature or extended functionality</li>
+<li><em>BKW</em> : addresses backward-compatibility</li>
+<li><em>OPT</em> : optimization</li>
+<li><em>BRK</em> : breaks something and/or tests fail</li>
+<li><em>DOC</em>: for all kinds of documentation related commits</li>
+<li><em>TST</em> : for adding or changing tests</li>
+<li><em>DAT</em> : for adding or changing data files</li>
+<li><em>STY</em> : PEP8 conformance, whitespace changes etc that do not affect
+function.</li>
+</ul>
+<p>So your commit message might look something like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">TST</span><span class="p">:</span> <span class="n">relax</span> <span class="n">test</span> <span class="n">threshold</span> <span class="n">slightly</span>
+
+<span class="n">Attempted</span> <span class="n">fix</span> <span class="k">for</span> <span class="n">failure</span> <span class="n">on</span> <span class="n">windows</span> <span class="n">test</span> <span class="n">run</span> <span class="n">when</span> <span class="n">arrays</span> <span class="n">are</span> <span class="ow">in</span> <span class="n">fact</span>
+<span class="n">very</span> <span class="n">close</span> <span class="p">(</span><span class="n">within</span> <span class="mi">6</span> <span class="n">dp</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>Keeping up a habit of doing this is useful because it makes it much easier to
+see at a glance which changes are likely to be important when you are looking
+for sources of bugs, fixes, large refactorings or new features.</p>
+</div>
+<div class="section" id="pull-request-codes">
+<h2>Pull request codes<a class="headerlink" href="#pull-request-codes" title="Permalink to this headline">¶</a></h2>
+<p>When you submit a pull request to github, github will ask you for a summary.  If
+your code is not ready to merge, but you want to get feedback, please consider
+using <code class="docutils literal"><span class="pre">WIP</span> <span class="pre">-</span> <span class="pre">experimental</span> <span class="pre">optimization</span></code> or similar for the title of your pull
+request. That way we will all know that it&#8217;s not yet ready to merge and that
+you may be interested in more fundamental comments about design.</p>
+<p>When you think the pull request is ready to merge, change the title (using the
+<em>Edit</em> button) to something like <code class="docutils literal"><span class="pre">MRG</span> <span class="pre">-</span> <span class="pre">optimization</span></code>.</p>
+</div>
+<div class="section" id="test-coverage">
+<h2>Test coverage<a class="headerlink" href="#test-coverage" title="Permalink to this headline">¶</a></h2>
+<p>Tests for a module should ideally cover all code in that module,
+i.e., statement coverage should be at 100%.</p>
+<p>To measure the test coverage, install
+<a class="reference external" href="http://nedbatchelder.com/code/coverage/">coverage.py</a>
+(e.g., using <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">coverage</span></code>) and then run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ make coverage
+</pre></div>
+</div>
+<p>This will print a report with one line for each file in <cite>mousestyles</cite>,
+detailing the test coverage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Name</span>                 <span class="n">Stmts</span>   <span class="n">Miss</span> <span class="n">Branch</span> <span class="n">BrMiss</span>  <span class="n">Cover</span>   <span class="n">Missing</span>
+<span class="o">----------------------------------------------------------------</span>
+<span class="n">mousestyles</span>                 <span class="mi">43</span>      <span class="mi">6</span>     <span class="mi">10</span>      <span class="mi">1</span>    <span class="mi">87</span><span class="o">%</span>   <span class="mi">72</span><span class="p">,</span> <span class="mi">77</span><span class="o">-</span><span class="mi">88</span>
+<span class="n">mousestyles</span><span class="o">.</span><span class="n">core</span>            <span class="mi">55</span>      <span class="mi">0</span>     <span class="mi">30</span>      <span class="mi">4</span>    <span class="mi">95</span><span class="o">%</span>
+<span class="n">mousestyles</span><span class="o">.</span><span class="n">data</span>            <span class="mi">45</span>      <span class="mi">0</span>      <span class="mi">2</span>      <span class="mi">0</span>   <span class="mi">100</span><span class="o">%</span>
+<span class="n">mousestyles</span><span class="o">.</span><span class="n">eda</span>             <span class="mi">22</span>      <span class="mi">0</span>      <span class="mi">8</span>      <span class="mi">0</span>   <span class="mi">100</span><span class="o">%</span>
+<span class="n">mousestyles</span><span class="o">.</span><span class="n">irr</span>             <span class="mi">52</span>      <span class="mi">0</span>     <span class="mi">20</span>      <span class="mi">2</span>    <span class="mi">97</span><span class="o">%</span>
+<span class="n">mousestyles</span><span class="o">.</span><span class="n">stratified</span>      <span class="mi">44</span>      <span class="mi">0</span>     <span class="mi">16</span>      <span class="mi">4</span>    <span class="mi">93</span><span class="o">%</span>
+<span class="o">----------------------------------------------------------------</span>
+<span class="n">TOTAL</span>                  <span class="mi">261</span>      <span class="mi">6</span>     <span class="mi">86</span>     <span class="mi">11</span>    <span class="mi">95</span><span class="o">%</span>
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">Ran</span> <span class="mi">35</span> <span class="n">tests</span> <span class="ow">in</span> <span class="mf">37.199</span><span class="n">s</span>
+
+<span class="n">OK</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="bugs">
+<h2>Bugs<a class="headerlink" href="#bugs" title="Permalink to this headline">¶</a></h2>
+<p>Please <a class="reference external" href="https://github.com/berkeley-stat222/mousestyles/issues">report bugs on GitHub</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Contributing</a><ul>
+<li><a class="reference internal" href="#development-process">Development process</a></li>
+<li><a class="reference internal" href="#divergence-between-upstream-master-and-your-feature-branch">Divergence between <code class="docutils literal"><span class="pre">upstream</span> <span class="pre">master</span></code> and your feature branch</a></li>
+<li><a class="reference internal" href="#guidelines">Guidelines</a></li>
+<li><a class="reference internal" href="#stylistic-guidelines">Stylistic Guidelines</a></li>
+<li><a class="reference internal" href="#commit-message-codes">Commit message codes</a></li>
+<li><a class="reference internal" href="#pull-request-codes">Pull request codes</a></li>
+<li><a class="reference internal" href="#test-coverage">Test coverage</a></li>
+<li><a class="reference internal" href="#bugs">Bugs</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Developer documentation</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Developer documentation</a></li>
+      <li>Next: <a href="DOCFLOW.html" title="next chapter">Documentation and Coding Standards</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/develop/contribute.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, 2016 UC Berkeley MA students.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/develop/contribute.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

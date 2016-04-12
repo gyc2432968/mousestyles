@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Developer documentation &mdash; mousestyles 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="mousestyles 0.1 documentation" href="../index.html" />
+    <link rel="next" title="Contributing" href="contribute.html" />
+    <link rel="prev" title="Welcome to mousestyles’s documentation!" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="developer-documentation">
+<h1>Developer documentation<a class="headerlink" href="#developer-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contribute.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contribute.html#development-process">Development process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contribute.html#divergence-between-upstream-master-and-your-feature-branch">Divergence between <code class="docutils literal"><span class="pre">upstream</span> <span class="pre">master</span></code> and your feature branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contribute.html#guidelines">Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contribute.html#stylistic-guidelines">Stylistic Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contribute.html#commit-message-codes">Commit message codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contribute.html#pull-request-codes">Pull request codes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contribute.html#test-coverage">Test coverage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contribute.html#bugs">Bugs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="DOCFLOW.html">Documentation and Coding Standards</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="DOCFLOW.html#naming-conventions">Naming Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DOCFLOW.html#indentation">Indentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DOCFLOW.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DOCFLOW.html#comments">Comments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DOCFLOW.html#blank-lines">Blank Lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DOCFLOW.html#whitespace">Whitespace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DOCFLOW.html#string-quotes">String Quotes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DOCFLOW.html#imports">Imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DOCFLOW.html#maximum-line-length">Maximum Line Length</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="TESTFLOW.html">Writing tests</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="TESTFLOW.html#what-aspects-of-a-function-need-to-be-tested">What aspects of a function need to be tested:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TESTFLOW.html#useful-command">Useful Command:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TESTFLOW.html#styles">Styles:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TESTFLOW.html#examples-test-data-utils-py">Examples: *test_data_utils.py*</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TESTFLOW.html#run-the-tests-with-the-command-make-test">Run the tests with the command: <code class="docutils literal"><span class="pre">make</span> <span class="pre">test</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="HOWTO_SETUP_SSH_KEY.html">Set up SSH key</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="../index.html" title="previous chapter">Welcome to mousestyles&#8217;s documentation!</a></li>
+      <li>Next: <a href="contribute.html" title="next chapter">Contributing</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/develop/index.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, 2016 UC Berkeley MA students.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/develop/index.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

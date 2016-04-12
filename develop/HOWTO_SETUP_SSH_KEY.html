@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Set up SSH key &mdash; mousestyles 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="mousestyles 0.1 documentation" href="../index.html" />
+    <link rel="up" title="Developer documentation" href="index.html" />
+    <link rel="next" title="Instruction:" href="TESTFLOW.html" />
+    <link rel="prev" title="Documentation and Coding Standards" href="DOCFLOW.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="set-up-ssh-key">
+<h1>Set up SSH key<a class="headerlink" href="#set-up-ssh-key" title="Permalink to this headline">¶</a></h1>
+<p>SSH, also known as Secure Socket Shell, is a network protocol that provides us with a secure way to access a remote computer. Once you set up your SSH key and add it to your Github account, you don&#8217;t have to type username and password when you push your commits to the remote repository.</p>
+<ol class="arabic">
+<li><p class="first">Checking for existing SSH keys:</p>
+<ul>
+<li><p class="first">Go to your local repository and check whether you have SSH key or not:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ls</span> <span class="o">-</span><span class="n">al</span> <span class="o">~/.</span><span class="n">ssh</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">If you already have the SSH key, you will see the one of the following filenames for the public SSH key:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">id_rsa.pub</span></code>, <code class="docutils literal"><span class="pre">id_ecdsa.pub</span></code>, <code class="docutils literal"><span class="pre">id_ed25519.pub</span></code>, or <code class="docutils literal"><span class="pre">id_rsa.pub</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">If you don&#8217;t see SSH key or don&#8217;t want to use the one you have, you can generate a new one (see 2).</p>
+</li>
+</ul>
+</li>
+<li><p class="first">Generating a new SSH key and adding it to the ssh-agent:</p>
+<ul>
+<li><p class="first">Generate a SSH key:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">-</span><span class="n">keygen</span> <span class="o">-</span><span class="n">t</span> <span class="n">rsa</span> <span class="o">-</span><span class="n">b</span> <span class="mi">4096</span> <span class="o">-</span><span class="n">C</span> <span class="s2">&quot;your_email@example.com&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">After you paste the above command to the terminal, you will get the following message:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">Enter</span> <span class="pre">a</span> <span class="pre">file</span> <span class="pre">in</span> <span class="pre">which</span> <span class="pre">to</span> <span class="pre">save</span> <span class="pre">the</span> <span class="pre">key</span> <span class="pre">(/Users/you/.ssh/id_rsa)</span></code> Hit enter to continue.</li>
+<li><code class="docutils literal"><span class="pre">Enter</span> <span class="pre">passphrase</span> <span class="pre">(empty</span> <span class="pre">for</span> <span class="pre">no</span> <span class="pre">passphrase)</span></code> Add passphrase if you want; otherwise, hit enter to continue.</li>
+<li><code class="docutils literal"><span class="pre">Enter</span> <span class="pre">same</span> <span class="pre">passphrase</span> <span class="pre">again</span></code> Type the passphrase again or hit enter to continue.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">You will see:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">Your</span> <span class="pre">identification</span> <span class="pre">has</span> <span class="pre">been</span> <span class="pre">saved</span> <span class="pre">in</span> <span class="pre">/home/oski/.ssh/id_rsa.</span></code></li>
+<li><code class="docutils literal"><span class="pre">Your</span> <span class="pre">public</span> <span class="pre">key</span> <span class="pre">has</span> <span class="pre">been</span> <span class="pre">saved</span> <span class="pre">in</span> <span class="pre">/home/oski/.ssh/id_rsa.pub.</span></code>, which means that you have SSH key now!</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Add it to the ssh-agent:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_rsa
+</pre></div>
+</div>
+</li>
+<li><p class="first">Now, you are ready to add the SSH key to Github.</p>
+</li>
+</ul>
+</li>
+<li><p class="first">Adding a new SSH key to your Github account:</p>
+<ul>
+<li><p class="first">Copy the SSH key to your clipboard:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">clip</span> <span class="o">&lt;</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span><span class="o">.</span><span class="n">pub</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Or you can use and copy the output:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cat</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span><span class="o">.</span><span class="n">pub</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Go to Github and click your profile in the top-right corner.</p>
+</li>
+<li><p class="first">Click the SSH and GPG keys on the right panel and click New SSH key.</p>
+</li>
+<li><p class="first">Give a label to this SSH key, paste the key into Key field and click Add SSH key.</p>
+</li>
+</ul>
+</li>
+<li><p class="first">Testing your SSH connection:</p>
+<ul>
+<li><p class="first">Enter:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="o">-</span><span class="n">T</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">You will see</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">The</span> <span class="pre">authenticity</span> <span class="pre">of</span> <span class="pre">host</span> <span class="pre">'github.com</span> <span class="pre">(192.30.252.1)'</span> <span class="pre">can't</span> <span class="pre">be</span> <span class="pre">established.</span> <span class="pre">RSA</span> <span class="pre">key</span> <span class="pre">fingerprint</span> <span class="pre">is</span> <span class="pre">16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.</span> <span class="pre">Are</span> <span class="pre">you</span> <span class="pre">sure</span> <span class="pre">you</span> <span class="pre">want</span> <span class="pre">to</span> <span class="pre">continue</span> <span class="pre">connecting</span> <span class="pre">(yes/no)?</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Type yes and you should see:</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="docutils literal"><span class="pre">Hi</span> <span class="pre">username!</span> <span class="pre">You've</span> <span class="pre">successfully</span> <span class="pre">authenticated,</span> <span class="pre">but</span> <span class="pre">GitHub</span> <span class="pre">does</span> <span class="pre">not</span> <span class="pre">provide</span> <span class="pre">shell</span> <span class="pre">access.</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</li>
+<li><p class="first">Switching remote URLs from HTTPS to SSH:</p>
+<ul>
+<li><p class="first">Since you probably already add your remote URL using HTTPS (check by <code class="docutils literal"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">-v</span></code>, you need to change it into SSH:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">remote</span> <span class="nb">set</span><span class="o">-</span><span class="n">url</span> <span class="n">origin</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">USERNAME</span><span class="o">/</span><span class="n">OTHERREPOSITORY</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">You can verify again by <code class="docutils literal"><span class="pre">git</span> <span class="pre">remote</span> <span class="pre">-v</span></code> and next time you push your commits to the origin, you don&#8217;t have to type username and password anymore!</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>For more detailed discussion, read <a class="reference external" href="https://help.github.com/categories/ssh/">SSH key documentation</a> on Github.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Developer documentation</a><ul>
+      <li>Previous: <a href="DOCFLOW.html" title="previous chapter">Documentation and Coding Standards</a></li>
+      <li>Next: <a href="TESTFLOW.html" title="next chapter">Instruction:</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/develop/HOWTO_SETUP_SSH_KEY.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, 2016 UC Berkeley MA students.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/develop/HOWTO_SETUP_SSH_KEY.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
