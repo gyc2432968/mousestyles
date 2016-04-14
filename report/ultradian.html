@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Ultradian Analysis &mdash; mousestyles 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="mousestyles 0.1 documentation" href="../index.html" />
+    <link rel="up" title="Project Report" href="index.html" />
+    <link rel="next" title="Classification and Clustering of Mice" href="classification.html" />
+    <link rel="prev" title="Dynamics of AS Patterns" href="dynamics.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ultradian-analysis">
+<span id="ultradian"></span><h1>Ultradian Analysis<a class="headerlink" href="#ultradian-analysis" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="statement-of-problem">
+<h2>Statement of problem<a class="headerlink" href="#statement-of-problem" title="Permalink to this headline">¶</a></h2>
+<p>Ultradian rhythm is widely observed in mammalian behavioral patterns.
+Ultradian analysis aims to find the time-specific patterns in behavioral
+records, without specifying the length of cycle in advance (but need to be
+within 1 hour to 1 day). Typical ultradian period for rats includes 4, 12 and
+24 hours. For example, we expect rats to be inactive in the nighttime.
+Ingestions and movements mostly happened in the daytime. It would be
+informative to study the ultradian cycle of the behavior of mouse and we need
+to answer the following questions for this study:</p>
+<p>What is the variable of interest for the periodic patterns?</p>
+<ul class="simple">
+<li>Summary of activity: Food and water ingestion, distance traveled , movement
+intensity, AS probability.</li>
+<li>Spatial variable: Spatially discrete the data to cells each with its primary
+functions such as food cell, water cell, etc. Examine ultradian cycle of the
+spatial probability densities of the occupancy time in each cells.</li>
+</ul>
+<p>How to subset the data?</p>
+<ul class="simple">
+<li>Basic subset: 16 strains.</li>
+<li>Strains may not be the primary influence for the variation of ultradian
+rhythms. We may look into the cycle for each mouse and detect the most
+important factors influencing the ultradian rhythms.</li>
+</ul>
+<p>How to choose the frequency or period ?</p>
+<ul class="simple">
+<li>The Lomb-Scargle (LS) periodogram spectral analysis technique, a widely used
+tool in period detection and frequency analysis.</li>
+</ul>
+<p>What is the connection with other subprojects?</p>
+<ul class="simple">
+<li>Ultradian rhythms could be treated as one feature for clustering the 16
+strains. We may also subset the data using the results of the cluster and
+analysis the rhythm similarities and differences across clusters.</li>
+</ul>
+</div>
+<div class="section" id="statement-of-statistical-problem">
+<h2>Statement of statistical problem<a class="headerlink" href="#statement-of-statistical-problem" title="Permalink to this headline">¶</a></h2>
+<p>How to determine the optimal bin intervals for constructing the time series?</p>
+<ul class="simple">
+<li>The bin interval may vary according to the frequency. Bin interval
+examples: 5 min, 30 min, 1 hour etc. Need to look into the data.</li>
+</ul>
+<p>How to test the autocorrelation coefficient for the data and assess the model?</p>
+<ul class="simple">
+<li>Use the AIC to select best time lags for the time series model and
+the K statistics to test the goodness of fit.</li>
+</ul>
+<p>For longitudinal data analysis, how to build the model? Which is the fixed
+effect or random effect?</p>
+</div>
+<div class="section" id="exploratory-analysis">
+<h2>Exploratory Analysis<a class="headerlink" href="#exploratory-analysis" title="Permalink to this headline">¶</a></h2>
+<p>Data investigation</p>
+<ul class="simple">
+<li>Think about known/expected cycles - time to digest, IS/AS cycle,
+etc.</li>
+<li>Try to investigate cycles that are greater than 24 hours to avoid
+missing cycles.</li>
+<li>During the acclimatization period, investigate difference in
+cycles.</li>
+</ul>
+<p>Plots</p>
+<ul class="simple">
+<li>Plots for determining optimal bin intervals for constructing the
+time series.</li>
+<li>Plots for discovering the frequency or period.</li>
+<li>General time series plots for getting intuitions for each
+variables.</li>
+</ul>
+<p>Models</p>
+<ul class="simple">
+<li>Usage of Lomb-Scargle (LS) periodogram spectral analysis
+technique, a widely used tool in period detection and frequency
+analysis</li>
+</ul>
+</div>
+<div class="section" id="data-requirements-description">
+<h2>Data Requirements Description<a class="headerlink" href="#data-requirements-description" title="Permalink to this headline">¶</a></h2>
+<p>Input: records for each strains (total of 16), each feature of interest (food,
+water, distance, active_state probability, ...), in a duration of 12 days
+(excluding 4 acclimation days).</p>
+<p>Processed: using one-minute time bins of movement records to binary score the
+activity into 0 (IS: inactive state) and 1 (AS: active state); using
+thirty-minute bins of food records to calculate the amount of chows consumed by
+mice; using LS periodogram technique to select the appropriate time bins for
+above.</p>
+<p>Output: different patterned visualization for each feature, with the
+appropriate time bins that presents the most significant ultradian pattern.</p>
+</div>
+<div class="section" id="methodology-approach-description">
+<h2>Methodology/Approach Description<a class="headerlink" href="#methodology-approach-description" title="Permalink to this headline">¶</a></h2>
+<p>Seasonal decomposition. Seasonal decomposition is a very common method used in
+time series analysis. One of the main objectives for a decomposition is to
+estimate seasonal effects that can be used to create and present seasonally
+adjusted values.</p>
+<p>Two basic structures are commonly used:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Additive</span><span class="p">:</span>  <span class="n">x_t</span> <span class="o">=</span> <span class="n">Trend</span> <span class="o">+</span> <span class="n">Seasonal</span> <span class="o">+</span> <span class="n">Random</span>
+
+<span class="mf">2.</span> <span class="n">Multiplicative</span><span class="p">:</span>  <span class="n">x_t</span><span class="o">=</span> <span class="n">Trend</span> <span class="o">*</span> <span class="n">Seasonal</span> <span class="o">*</span> <span class="n">Random</span>
+</pre></div>
+</div>
+<p>The &#8220;Random&#8221; term is often called &#8220;Irregular&#8221; in software for decompositions.</p>
+<p>Basic steps:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">Estimate</span> <span class="n">the</span> <span class="n">trend</span>
+
+<span class="mf">2.</span> <span class="s2">&quot;De-trend&quot;</span> <span class="n">the</span> <span class="n">data</span>
+
+<span class="mf">3.</span> <span class="n">Estimate</span> <span class="n">seasonal</span> <span class="n">factors</span> <span class="n">by</span> <span class="n">using</span> <span class="n">the</span> <span class="s2">&quot;de-trended&quot;</span> <span class="n">series</span>
+
+<span class="mf">4.</span> <span class="n">Determine</span> <span class="n">the</span> <span class="s2">&quot;random&quot;</span> <span class="n">term</span>
+</pre></div>
+</div>
+<p>Longitudinal data analysis.</p>
+<ul class="simple">
+<li>Attempts for mixed models<ul>
+<li>The mixed model is frequently used for longitudinal analysis.
+We should specify the random effects and fixed effects first,
+such as the IS/AS condition, the purpose of the active: like
+food or water and any other important features. Then we can use
+linear mixed model to get the pattern of the movements in
+different time period.</li>
+<li>Statsmodels.api package can be used to decompose the dataset we
+have.</li>
+</ul>
+</li>
+</ul>
+<p>Autocorrelation analysis.</p>
+<ul class="simple">
+<li>Implement numpy.correlate functions to investigate autocorrelation
+in several variables for features of interest (food, water,
+distance, active_state probability ...)</li>
+<li>Explore different kinds of autocorrelation models (spatial
+analysis, regression analysis) on variables generated by other
+subprojects.</li>
+</ul>
+</div>
+<div class="section" id="testing-framework-outline">
+<h2>Testing Framework Outline<a class="headerlink" href="#testing-framework-outline" title="Permalink to this headline">¶</a></h2>
+<p>Step 1: Generating random samples for testing:</p>
+<ul class="simple">
+<li>Split the data based on the Mouse Day Cycle</li>
+<li>Number the splits and use numpy.random to subset from these splits</li>
+</ul>
+<p>Step 2: Conduct Lomb-Scargle (LS) test to detect the period. Implement the
+three different models onto the certain period and get the patterns/ estimated
+coefficients for the model.</p>
+<p>Step 3: Compare the result with our hypothesis.</p>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Lloyd, David, and Ernest L. Rossi, eds. Ultradian rhythms in life
+processes: An inquiry into fundamental principles of chronobiology
+and psychobiology. Springer Science &amp; Business Media, 2012.</li>
+<li>Stephenson, Richard, et al. &#8220;Sleep-Wake Behavior in the Rat Ultradian
+Rhythms in a Light-Dark Cycle and Continuous Bright Light.&#8221; Journal
+of biological rhythms 27.6 (2012): 490-501.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Ultradian Analysis</a><ul>
+<li><a class="reference internal" href="#statement-of-problem">Statement of problem</a></li>
+<li><a class="reference internal" href="#statement-of-statistical-problem">Statement of statistical problem</a></li>
+<li><a class="reference internal" href="#exploratory-analysis">Exploratory Analysis</a></li>
+<li><a class="reference internal" href="#data-requirements-description">Data Requirements Description</a></li>
+<li><a class="reference internal" href="#methodology-approach-description">Methodology/Approach Description</a></li>
+<li><a class="reference internal" href="#testing-framework-outline">Testing Framework Outline</a></li>
+<li><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Project Report</a><ul>
+      <li>Previous: <a href="dynamics.html" title="previous chapter">Dynamics of AS Patterns</a></li>
+      <li>Next: <a href="classification.html" title="next chapter">Classification and Clustering of Mice</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/report/ultradian.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, 2016 UC Berkeley MA students.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/report/ultradian.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

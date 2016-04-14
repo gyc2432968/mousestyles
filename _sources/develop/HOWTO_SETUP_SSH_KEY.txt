@@ -13,7 +13,7 @@ SSH, also known as Secure Socket Shell, is a network protocol that provides us w
 
       - ``id_rsa.pub``, ``id_ecdsa.pub``, ``id_ed25519.pub``, or ``id_rsa.pub``
 
-   * If you don't see SSH key or don't want to use the one you have, you can generate a new one (see 2).  
+   * If you don't see SSH key or don't want to use the one you have, you can generate a new one (see 2).
 
 2. Generating a new SSH key and adding it to the ssh-agent:
 

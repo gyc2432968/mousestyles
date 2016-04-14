@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Classification and Clustering of Mice &mdash; mousestyles 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="mousestyles 0.1 documentation" href="../index.html" />
+    <link rel="up" title="Project Report" href="index.html" />
+    <link rel="next" title="Power Laws &amp; Universality" href="distribution.html" />
+    <link rel="prev" title="Ultradian Analysis" href="ultradian.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="classification-and-clustering-of-mice">
+<span id="classification"></span><h1>Classification and Clustering of Mice<a class="headerlink" href="#classification-and-clustering-of-mice" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="statement-of-overall-problem">
+<h2>Statement of overall problem<a class="headerlink" href="#statement-of-overall-problem" title="Permalink to this headline">¶</a></h2>
+<p>The mouse style research investigates mouse behaviors of different
+genes. The researchers hope to gain insight to human behaviors using
+mouse data, since experimenting directly on human is difficult.</p>
+<p>The important concern is whether we can classify different strains of
+mice based on mouse behaviors through machine learning algorithms.
+Important features in classification models will be extracted for future
+study. Another question of interest is on whether genetic affects
+(different strain effects) psychological disorders such as depression,
+or overeating. The fundamental hypothesis is that different mouse
+strains have different behaviors, and we are able to use these behaviors
+as features to classify mice successfully.</p>
+</div>
+<div class="section" id="statement-of-statistical-problems">
+<h2>Statement of statistical problems<a class="headerlink" href="#statement-of-statistical-problems" title="Permalink to this headline">¶</a></h2>
+<p>The researchers design the experiment as follow: they have 16 different
+strains of mice, and each strain has 9 to 12 almost identical male mice
+in terms of genetic.</p>
+<p>We need to firstly verify the assumption that mouse of different strains
+do exhibit different behaviors. One way to do this is to perform
+hypothesis testing based on the joint distribution of all the features.
+A simpler alternative is to perform EDA on each of the features. If we
+observe that each mouse behaves very similarly to its twins, but
+differently from other strains of mice, we can conclude that genetic
+differences affect mouse behaviors and that behavioral features might be
+important for classification. Notice that here we can evaluate the
+difference by assessing the classification performance of models based
+on behavioral features.</p>
+<p>Based on the assumption, the problem is inherently a multiclass
+classification problem based on behavioral features either directly
+obtained during the experiment or artificially constructed. Here we have
+to determine the feature space both from the exploratory analysis and
+biological knowledge. If the classification models performed well, we
+may conclude that behavioral differences indeed reveal genetic
+differences, and dig into the most important features needed seeking the
+biological explanations. Otherwise, say if the model fails to
+distinguish two different strains of mice, we may study that whether
+those strains of mice are genetically similar or the behavior features
+we selected are actually homogeneous through different strains of mice.</p>
+</div>
+<div class="section" id="exploratory-analysis-classification-models">
+<h2>Exploratory Analysis &amp; Classification Models<a class="headerlink" href="#exploratory-analysis-classification-models" title="Permalink to this headline">¶</a></h2>
+<p>In 1D, box plots of each feature, say food consumption or sleeping time,
+of each strain can be plotted. In 2D, PCA can be preformed on the
+feature data set and the data are then plotted along the first and the
+second principal axes colored in different strains. These plots are
+useful in verifying assumptions. For instance, we could box-plot
+different strains of mice against food consumption to see whether
+different strains of mice eat distinctly. If the number of variables
+needed to be evaluated is large, we might also use five number summaries
+to study the distributions.</p>
+<p>Example boxplots:</p>
+<div class="figure align-center" id="id1">
+<img alt="../_images/features_boxplot_by_strain.png" src="../_images/features_boxplot_by_strain.png" />
+<p class="caption"><span class="caption-text">Example boxplots</span></p>
+</div>
+<p>Since each strain (each class) only has 9 to 12 mice, inputting too many
+features to the classification model is unwise. The exploratory data
+analysis will be an important step for hypothesis testing and feature
+selection. The process will also help us to find outliers and missing
+values in each behavioral variable, and we will decide how to handle
+those values after encountering that.</p>
+</div>
+<div class="section" id="data-requirements-description">
+<h2>Data Requirements Description<a class="headerlink" href="#data-requirements-description" title="Permalink to this headline">¶</a></h2>
+<p>We dispose of a labeled data set of 16 different strains of mice.
+Behavioral features are recorded for each mouse and each day. One
+example can be the time spent eating or drinking, and the amount
+ingested.</p>
+<p>The researchers record the daily activities of each mouse, for example
+the time it spends eating, drinking, sleeping, and wondering around its
+habitats. Therefore, every behavioral features should be averaged to the
+same time period (one mouse day) for each mouse. For example, the food
+consumed variable at each timestamp will be aggregated to the average
+food consumption.</p>
+<p>Notice that the final dataset should be a clean and well formatted
+dataframe (in numpy array or pandas dataframe) aggregating the features
+of mice so that it can be directly used to train classification models.</p>
+<p>Besides, the detailed explanation for each variable and strain type
+might be needed for further interpretations of models.</p>
+</div>
+<div class="section" id="methodology-approach-description">
+<h2>Methodology/ Approach Description<a class="headerlink" href="#methodology-approach-description" title="Permalink to this headline">¶</a></h2>
+<p>1.Supervised Classification: Supervised classification algorithms
+(logistic regression, random forest, KNN) will be used to detect the
+relationship between strain of mice and behavioral features. If we gain
+good model performance, we can conclude different mouse behaviors
+actually indicate different genetic differences. K-fold cross-validation
+might be used to tune model parameters, and a proportion of data would
+be used as test data to evaluate the model performance. Notice that we
+may manually manipulate so that the both the training data and the test
+data cover all strains of mice.</p>
+<p>2.Unsupervised clustering In addition, we can use unsupervised machine
+learning models (e.g. K-means) to cluster the daily mouse activities
+into clusters that correspond to the genes. This means we will not use
+the given strain label, instead we will create new labels for mice
+purely based on its behaviors by clustering. This can highlight an even
+stronger relationship between genes and mouse behaviors.</p>
+<p>The step after model fitting is to assess the important behavioral
+features in the classification and clustering models. A smaller set of
+feature space containing only top features might be used to gain better
+interpretations of the model.</p>
+</div>
+<div class="section" id="testing-framework-outline">
+<h2>Testing Framework outline<a class="headerlink" href="#testing-framework-outline" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>The first step to test the reproducibility is to test the stability
+of classification models. Since we randomly split the dataset to be
+the test set and the training set, we can train and test the model
+over different seeds and plot the accuracy against different
+trials. We should also see if the important features are stable over
+different trials.</li>
+<li>From our limited understanding, the results of this research might
+have a meaningful implication on the way we treat psychological
+disorders. If it turns out that nature does influence these
+disorders, we can probably conclude that psychological disorders is
+not much different than physical disabilities. Otherwise, if nature
+has little influence over these disorders, we can try to find way to
+prevent these disorders from happening.</li>
+</ul>
+</div>
+<div class="section" id="initial-tasks">
+<h2>Initial tasks<a class="headerlink" href="#initial-tasks" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Clean up the existing strain_classification.py: create functions and
+objects.</li>
+<li>Adding new models: knn, random forests, neural networks, logistic
+regressions.</li>
+<li>Doing unsupervised learning: k-means.</li>
+<li>Compute confidence interval for the accuracy of each model.</li>
+<li>Give insights about how mice behavior is related to their genetic
+heritage (strain difference).</li>
+</ol>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Classification and Clustering of Mice</a><ul>
+<li><a class="reference internal" href="#statement-of-overall-problem">Statement of overall problem</a></li>
+<li><a class="reference internal" href="#statement-of-statistical-problems">Statement of statistical problems</a></li>
+<li><a class="reference internal" href="#exploratory-analysis-classification-models">Exploratory Analysis &amp; Classification Models</a></li>
+<li><a class="reference internal" href="#data-requirements-description">Data Requirements Description</a></li>
+<li><a class="reference internal" href="#methodology-approach-description">Methodology/ Approach Description</a></li>
+<li><a class="reference internal" href="#testing-framework-outline">Testing Framework outline</a></li>
+<li><a class="reference internal" href="#initial-tasks">Initial tasks</a></li>
+<li><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Project Report</a><ul>
+      <li>Previous: <a href="ultradian.html" title="previous chapter">Ultradian Analysis</a></li>
+      <li>Next: <a href="distribution.html" title="next chapter">Power Laws &amp; Universality</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/report/classification.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, 2016 UC Berkeley MA students.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/report/classification.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

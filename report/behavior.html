@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Behavioral Model &mdash; mousestyles 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="mousestyles 0.1 documentation" href="../index.html" />
+    <link rel="up" title="Project Report" href="index.html" />
+    <link rel="next" title="Exploration &amp; Path Diversity" href="path.html" />
+    <link rel="prev" title="Overview" href="overview.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="behavioral-model">
+<span id="behavior"></span><h1>Behavioral Model<a class="headerlink" href="#behavioral-model" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="statement-of-problem">
+<h2>Statement of Problem:<a class="headerlink" href="#statement-of-problem" title="Permalink to this headline">¶</a></h2>
+<p>In order to differentiate mice, we need to create a detailed behavior
+profile to describe:</p>
+<ol class="arabic simple">
+<li>how they drink, feed or move (locomotion) and</li>
+<li>how they translate between active state or inactive state.</li>
+</ol>
+<p>We have the following key background information from the paper:</p>
+<ul class="simple">
+<li><strong>Home Cage Monitoring System(HCM)</strong> HCM cages were spatially
+discretized into a 12 x 24 array of cells and occupancy times for
+each MD were computed as the proportion of time spent within each of
+the 288 cells. To determine whether animals establish a Home base,
+HCM cages were spatially discretized into a 2 x 4 array of cells, and
+occupancy times for each mouse day were calculated as above. In the
+experiment, 56/158 animals displayed largest occupancy times in the
+cell containing the niche area, which was considered to be their Home
+base location.</li>
+<li><strong>Active and Inactive State</strong> Mice react differently during
+Active state and Inactive states and
+all behavioral record should be classified into 2 mutually exclusive
+categories, Active States (ASs) and Inactive States (ISs). To
+designate ISs, we examined all time intervals occurring between
+movement, feeding, and drinking events while the animal was outside
+the Home base. Those time intervals exceeding an IS Threshold (IST)
+duration value were classified as ISs; the set of ASs was then
+defined as the complement of these ISs. Equivalent mathematically,
+ASs can also be defined as those intervals resulting from connecting
+gaps between events outside the Home base of length at most IST; ISs
+are then defined as the complement of these ASs. (<em>Active State
+Organization of Spontaneous Behavior Patterns</em>, C. Hillar et al.)</li>
+</ul>
+</div>
+<div class="section" id="statement-of-statistical-problems">
+<h2>Statement of statistical problems:<a class="headerlink" href="#statement-of-statistical-problems" title="Permalink to this headline">¶</a></h2>
+<p>The above flowchart shows the key metrics that are required by the study
+to capture the behavioral profile:</p>
+<div class="figure" id="id1">
+<img alt="alt tag" src="../_images/project1_behavior_profile.png" />
+<p class="caption"><span class="caption-text">Behavioral Profile (image courtesy of Tecott Lab)</span></p>
+</div>
+<p>The main focus is 3 key states of the mice i.e. [<em>Drinking | Feeding |
+Locomotion</em>]</p>
+<p>Each of these metrics can be seen visually in the slides referenced
+below. Each metric is a tree, decomposed into two child node metrics,
+whereby when the child nodes are multiplied together, they yield the
+parent metric.</p>
+<ul class="simple">
+<li>AS [<em>Drinking | Feeding | Locomotion</em>] Intensity</li>
+<li><em>A note about intensity:</em> We are not entirely sure what the Tecott
+Lab&#8217;s meaning of &#8220;intensity&#8221; is. Our current hypothesis is that
+intensity is defined as quantity over active state time. E.g. for
+drinking, intensity is the quantity consumed divided by the total
+amount of time the mouse is in an active state.<ul>
+<li>[<em>Drinking | Feeding | Locomotion</em>] Bout Size<ul>
+<li>[<em>Drinking | Feeding | Locomotion</em>] Bout Duration</li>
+<li>[<em>Drinking | Feeding | Locomotion</em>] Bout Intensity<ul>
+<li>[<em>Drinking | Feeding | Locomotion</em>] Bout EventRate</li>
+<li>[<em>Drinking | Feeding | Locomotion</em>] Event Size</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>[<em>Drinking | Feeding | Locomotion</em>] Bout Rt</li>
+</ul>
+</li>
+</ul>
+<p>Additionally the following needs to be calculated for Inactive /Active
+State:</p>
+<ul class="simple">
+<li>AS Probability: the probability of AS among all time period</li>
+<li>AS Duration: the length of time of AS</li>
+<li>AS Rate: the reciprocal of average length of time of AS</li>
+</ul>
+</div>
+<div class="section" id="data-collection">
+<h2>Data Collection:<a class="headerlink" href="#data-collection" title="Permalink to this headline">¶</a></h2>
+<p>The data we have:</p>
+<ul class="simple">
+<li>the observations of location for each mice, <span class="math">\((x, y, t)\)</span> with <span class="math">\(t\)</span> small.</li>
+<li>the aggregated time binned features about each event and its intensity.</li>
+</ul>
+<p>The data we need:</p>
+<ul class="simple">
+<li>the observation of consumption size and moving distance with each event.</li>
+</ul>
+</div>
+<div class="section" id="exploratory-analysis">
+<h2>Exploratory Analysis<a class="headerlink" href="#exploratory-analysis" title="Permalink to this headline">¶</a></h2>
+<p>Based on the data requirements being provided, we will need to start
+plotting the following metrics:</p>
+<p>For Event</p>
+<ul class="simple">
+<li>Event Consumption or Distance: Already in basic time bin features.</li>
+<li>AS Event Intensity: Already in basic time bin features.</li>
+<li>AS Bout Routine: Use <cite>txy_coords</cite> within each event intervals to generate
+the path.</li>
+<li>Event Bout Size or Distance: Use observation of consumption size and
+moving distance data.</li>
+<li>Event Bout Duration: Use event intervals data.</li>
+<li>Event Bout Intensity: Use Event Consumption or Distance over minute of AS time</li>
+<li>Event Size: Use interval to get the number of event happened in binned time</li>
+<li>Event Bout Rate: Use Event Size over AS time.</li>
+</ul>
+<p>For In/Active State</p>
+<ul class="simple">
+<li>AS Probability: Already in basic time bin features.</li>
+<li>AS Duration: Already in basic time bin features.</li>
+<li>AS Rate: Use AS Number over AS Duration.</li>
+</ul>
+</div>
+<div class="section" id="data-requirements-description">
+<h2>Data Requirements Description<a class="headerlink" href="#data-requirements-description" title="Permalink to this headline">¶</a></h2>
+<p>The data we have:</p>
+<ul class="simple">
+<li>a dataframe of observations of location for each mice, <span class="math">\((x, y, t)\)</span>
+with <span class="math">\(t\)</span> small.</li>
+<li>The above dataframe with a classification of strain number and mouse
+number at each time <span class="math">\(t\)</span> (if available)</li>
+</ul>
+<p>The data we require:</p>
+<ul class="simple">
+<li>The above dataframe with AS/ IS properly classified at each point <span class="math">\(t\)</span> for
+each mouse</li>
+<li>The above dataframe with a classification of drinking, feeding and
+locomotion for each mouse at each time <span class="math">\(t\)</span></li>
+<li>The above dataframe with a classification of consumption size and moving
+distance with each event at each time <span class="math">\(t\)</span></li>
+</ul>
+</div>
+<div class="section" id="methodology-approach-description">
+<h2>Methodology/ Approach Description<a class="headerlink" href="#methodology-approach-description" title="Permalink to this headline">¶</a></h2>
+<p>We wish to create a single function that should be able to return all of
+the above metrics as a list:</p>
+<p>Key inputs are:</p>
+<ul class="simple">
+<li>mouse/ strain as string</li>
+<li>starting time</li>
+<li>ending time</li>
+<li>a dictionary containing the rectangular vertices marking the area to
+restrict the movement to i.e. x_lower, x_upper, y_lower, y_upper.</li>
+<li>[<em>Drinking | Feeding | Locomotion</em>] state specification</li>
+<li>The main output is a list containing the key metrics stated in
+<code class="docutils literal"><span class="pre">Statement</span> <span class="pre">of</span> <span class="pre">statistical</span> <span class="pre">problems</span></code> section</li>
+<li>Key idea is that if we have the most granular dataframe in
+<code class="docutils literal"><span class="pre">Data</span> <span class="pre">Requirements</span> <span class="pre">Description</span></code> then the Python code is really just
+a SQL (in <code class="docutils literal"><span class="pre">pandas</span></code> form) filtering/ grouping query to generate the
+required output metrics (from flowchart) in the form of a list</li>
+</ul>
+</div>
+<div class="section" id="testing-framework-outline">
+<h2>Testing Framework Outline<a class="headerlink" href="#testing-framework-outline" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="additional-remarks">
+<h2>Additional Remarks<a class="headerlink" href="#additional-remarks" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">It is not clear exactly how the specified required metrics are to be
+calculated in the form of a single query or multiple queries. We need
+more clarification on what intensity means.</p>
+</li>
+<li><p class="first">Not sure yet whether the required dataframe at the most granular
+level can be easily constructed. This would be really useful for all
+projects to use so we should really consider developing it for the
+wider team.</p>
+</li>
+<li><p class="first">Some of the required data metrics like consumption of food/ water at
+each time t may not be easy to obtain as they are provided for each
+interval. These may have to be prorated across each time t in some
+stable way in the construction of the required dataframe</p>
+</li>
+<li><p class="first">We also believe that the metrics provided at each point are single
+point statistics i.e. means. We should consider outputing the actual
+histogram of values at each point for the given metric rather than
+just the single-valued mean metrics</p>
+<blockquote>
+<div><ul class="simple">
+<li>For example, we may not only be interested in the average amount
+of active time spent in locomotion, but the distribution of
+locomotion. This is a more complicated metric than those outlined
+in the work by the Tecott Lab&#8217;s papers referenced below. With this
+information, we could potentially see interesting trends: the
+proportion of a mouse-day spent in locomotion could be the same in
+two time chunks, but the types of movements (distances) could form
+a more nuanced distribution.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Not sure if this is feasible, but if we had to produce the mean value
+we could output the time series mean value over the given interval
+rather than <em>just</em> the overall mean from the given interval</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Behavioral Model</a><ul>
+<li><a class="reference internal" href="#statement-of-problem">Statement of Problem:</a></li>
+<li><a class="reference internal" href="#statement-of-statistical-problems">Statement of statistical problems:</a></li>
+<li><a class="reference internal" href="#data-collection">Data Collection:</a></li>
+<li><a class="reference internal" href="#exploratory-analysis">Exploratory Analysis</a></li>
+<li><a class="reference internal" href="#data-requirements-description">Data Requirements Description</a></li>
+<li><a class="reference internal" href="#methodology-approach-description">Methodology/ Approach Description</a></li>
+<li><a class="reference internal" href="#testing-framework-outline">Testing Framework Outline</a></li>
+<li><a class="reference internal" href="#additional-remarks">Additional Remarks</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Project Report</a><ul>
+      <li>Previous: <a href="overview.html" title="previous chapter">Overview</a></li>
+      <li>Next: <a href="path.html" title="next chapter">Exploration &amp; Path Diversity</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/report/behavior.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, 2016 UC Berkeley MA students.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/report/behavior.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

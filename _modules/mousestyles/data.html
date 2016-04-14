@@ -103,6 +103,125 @@
     <span class="n">other_features</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data_frames</span><span class="p">]</span>
     <span class="n">other_features</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">all_features_df</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">other_features</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="load_intervals"><a class="viewcode-back" href="../../api/data.html#mousestyles.data.load_intervals">[docs]</a><span class="k">def</span> <span class="nf">load_intervals</span><span class="p">(</span><span class="n">feature</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a pandas.DataFrame object of project interval data</span>
+<span class="sd">    for the specified feature.</span>
+
+<span class="sd">    There are 5 columns in the dataframe:</span>
+<span class="sd">    strain: the strain number of the mouse</span>
+<span class="sd">    mouse: the mouse number in its strain</span>
+<span class="sd">    day: the day number</span>
+<span class="sd">    start: the start time</span>
+<span class="sd">    stop: the stop time</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    feature: {&quot;AS&quot;, &quot;F&quot;, &quot;IS&quot;, &quot;M_AS&quot;, &quot;M_IS&quot;, &quot;W&quot;}</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    intervals : pandas.DataFrame</span>
+<span class="sd">        All data of the specified feature as a dataframe</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; AS = load_intervals(&#39;AS&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; IS = load_intervals(&#39;IS&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># check input is one of the provided choices</span>
+    <span class="k">if</span> <span class="n">feature</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;AS&quot;</span><span class="p">,</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;IS&quot;</span><span class="p">,</span> <span class="s2">&quot;M_AS&quot;</span><span class="p">,</span> <span class="s2">&quot;M_IS&quot;</span><span class="p">,</span> <span class="s2">&quot;W&quot;</span><span class="p">}:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s1">&#39;Input value must be one of {&quot;AS&quot;, &quot;F&quot;, &quot;IS&quot;, &quot;M_AS&quot;, &quot;M_IS&quot;, &quot;W&quot;}&#39;</span>
+            <span class="p">)</span>
+    <span class="c1"># get all file names</span>
+    <span class="n">file_names</span> <span class="o">=</span> <span class="n">_os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">&quot;intervals&quot;</span><span class="p">,</span> <span class="n">feature</span><span class="p">))</span>
+    <span class="c1"># check if directory is empty</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">file_names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Directory is empty; no file found.&#39;</span><span class="p">)</span>
+    <span class="c1"># initialized data frame</span>
+    <span class="c1"># use for loop to load every file and concat to overall data frame</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">file_names</span><span class="p">:</span>
+        <span class="n">strain</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;strain&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_mouse&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">mouse</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;mouse&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_day&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">day</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;day&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.npy&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="s2">&quot;intervals&quot;</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+        <span class="n">sub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">dt_sub</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="n">dt_sub</span><span class="p">[</span><span class="s2">&quot;strain&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">strain</span><span class="p">]</span> <span class="o">*</span> <span class="n">sub</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">dt_sub</span><span class="p">[</span><span class="s2">&quot;mouse&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">mouse</span><span class="p">]</span> <span class="o">*</span> <span class="n">sub</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">dt_sub</span><span class="p">[</span><span class="s2">&quot;day&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">day</span><span class="p">]</span> <span class="o">*</span> <span class="n">sub</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">dt_sub</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sub</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">dt_sub</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sub</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">dt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">dt</span><span class="p">,</span> <span class="n">dt_sub</span><span class="p">])</span>
+    <span class="c1"># sort based on strain, mouse and day</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">sort</span><span class="p">([</span><span class="s2">&quot;strain&quot;</span><span class="p">,</span> <span class="s2">&quot;mouse&quot;</span><span class="p">,</span> <span class="s2">&quot;day&quot;</span><span class="p">])</span>
+    <span class="n">dt</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">dt</span></div>
+
+
+<div class="viewcode-block" id="load_movement"><a class="viewcode-back" href="../../api/data.html#mousestyles.data.load_movement">[docs]</a><span class="k">def</span> <span class="nf">load_movement</span><span class="p">(</span><span class="n">strain</span><span class="p">,</span> <span class="n">mouse</span><span class="p">,</span> <span class="n">day</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a pandas.DataFrame object of project movement data</span>
+<span class="sd">    for the specified combination of strain, mouse and day.</span>
+
+<span class="sd">    There are 4 columns in the dataframe:</span>
+<span class="sd">    t: Time coordinates (in seconds)</span>
+<span class="sd">    x: X coordinates indicating the left-right position of the cage</span>
+<span class="sd">    y: Y coordinates indicating the front-back position of the cage</span>
+<span class="sd">    isHB: Boolean indicating whether the point is in the home base or not</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    strain: int</span>
+<span class="sd">        nonnegative integer indicating the strain number</span>
+<span class="sd">    mouse: int</span>
+<span class="sd">        nonnegative integer indicating the mouse number</span>
+<span class="sd">    day: int</span>
+<span class="sd">        nonnegative integer indicating the day number</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    movement : pandas.DataFrame</span>
+<span class="sd">        CT, CX, CY coordinates and home base status</span>
+<span class="sd">        of the combination of strain, mouse and day</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; movement = load_movement(0, 0, 0)</span>
+<span class="sd">    &gt;&gt;&gt; movement = load_movement(1, 2, 1)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># check if all inputs are nonnegative integers</span>
+    <span class="n">conditions_value</span> <span class="o">=</span> <span class="p">[</span><span class="n">strain</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">mouse</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">day</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">conditions_type</span> <span class="o">=</span> <span class="p">[</span><span class="nb">type</span><span class="p">(</span><span class="n">strain</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">mouse</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span><span class="p">,</span>
+                       <span class="nb">type</span><span class="p">(</span><span class="n">day</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">conditions_value</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input values need to be nonnegative&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">conditions_type</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Input values need to be integer&quot;</span><span class="p">)</span>
+    <span class="c1"># load all four files of HB, CT, CX and CY data</span>
+    <span class="n">HB_path</span> <span class="o">=</span> <span class="s2">&quot;txy_coords/C_idx_HB/C_idx_HB_strain{}_mouse{}_day{}.npy&quot;</span><span class="o">.</span>\
+        <span class="n">format</span><span class="p">(</span><span class="n">strain</span><span class="p">,</span> <span class="n">mouse</span><span class="p">,</span> <span class="n">day</span><span class="p">)</span>
+    <span class="n">CT_path</span> <span class="o">=</span> <span class="s2">&quot;txy_coords/CT/CT_strain{}_mouse{}_day{}.npy&quot;</span><span class="o">.</span>\
+        <span class="n">format</span><span class="p">(</span><span class="n">strain</span><span class="p">,</span> <span class="n">mouse</span><span class="p">,</span> <span class="n">day</span><span class="p">)</span>
+    <span class="n">CX_path</span> <span class="o">=</span> <span class="s2">&quot;txy_coords/CX/CX_strain{}_mouse{}_day{}.npy&quot;</span><span class="o">.</span>\
+        <span class="n">format</span><span class="p">(</span><span class="n">strain</span><span class="p">,</span> <span class="n">mouse</span><span class="p">,</span> <span class="n">day</span><span class="p">)</span>
+    <span class="n">CY_path</span> <span class="o">=</span> <span class="s2">&quot;txy_coords/CY/CY_strain{}_mouse{}_day{}.npy&quot;</span><span class="o">.</span>\
+        <span class="n">format</span><span class="p">(</span><span class="n">strain</span><span class="p">,</span> <span class="n">mouse</span><span class="p">,</span> <span class="n">day</span><span class="p">)</span>
+    <span class="n">HB</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">HB_path</span><span class="p">))</span>
+    <span class="n">CT</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">CT_path</span><span class="p">))</span>
+    <span class="n">CX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">CX_path</span><span class="p">))</span>
+    <span class="n">CY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">_os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">CY_path</span><span class="p">))</span>
+    <span class="c1"># make data frame</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    <span class="n">dt</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CT</span>
+    <span class="n">dt</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CX</span>
+    <span class="n">dt</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CY</span>
+    <span class="n">dt</span><span class="p">[</span><span class="s2">&quot;isHB&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">HB</span>
+    <span class="k">return</span> <span class="n">dt</span></div>
 </pre></div>
 
           </div>

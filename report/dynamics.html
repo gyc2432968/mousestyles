@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dynamics of AS Patterns &mdash; mousestyles 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="mousestyles 0.1 documentation" href="../index.html" />
+    <link rel="up" title="Project Report" href="index.html" />
+    <link rel="next" title="Ultradian Analysis" href="ultradian.html" />
+    <link rel="prev" title="Exploration &amp; Path Diversity" href="path.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="dynamics-of-as-patterns">
+<span id="dynamics"></span><h1>Dynamics of AS Patterns<a class="headerlink" href="#dynamics-of-as-patterns" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="statement-of-problem">
+<h2>Statement of Problem<a class="headerlink" href="#statement-of-problem" title="Permalink to this headline">¶</a></h2>
+<p>The objective of Dynamics Analysis is to classify the active states and
+inactive states, as well as understand the dynamics/transitions between
+AS and IS..</p>
+</div>
+<div class="section" id="statement-of-statistical-problems">
+<h2>Statement of Statistical Problems<a class="headerlink" href="#statement-of-statistical-problems" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Use the Raw Observation Data of Mouse&#8217;s spatial and temporal data, to
+classify for each time-stamp whether the mice is in Active State or
+Inactive State, therefore to calculate AS numbers, AS durations, and
+AS probability for the 2-hour bin.</li>
+<li>Calculate the probability of events transition (e.g. eating =&gt;
+drinking) and of states transition (i.e. active =&gt; inactive).</li>
+<li>Using those probabilities as a feature of our &#8220;big model&#8221; to predict
+the mice&#8217;s gene type based on their behavior.</li>
+</ul>
+</div>
+<div class="section" id="exploratory-analysis">
+<h2>Exploratory Analysis<a class="headerlink" href="#exploratory-analysis" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Paper Define that when the mice is inside the Home Base, it is in IS.
+However, we make some improvement by adding the assumption that mice
+bring food back to Home Base.<ul>
+<li>Original Classification:</li>
+<li>Improved Classification:</li>
+</ul>
+</li>
+<li>EDA on their result to get a rough idea of the expectation: Summary
+statistics and plots can serve starting points to answer our
+problems. For example, it can be helpful to plot the features (e.g.
+food consumption, moving distance) over time bin for all mice.<ul>
+<li>Food Consumed:</li>
+<li>Distance Traveled:</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="data-requirements-description">
+<h2>Data Requirements Description<a class="headerlink" href="#data-requirements-description" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Variables should be explained in detail for further analysis. For
+example, we need to merge the interval data to the main data to apply
+the methodology, but it is little explained how to match the
+time-stamps of the interval data to those of the main data.</li>
+</ul>
+</div>
+<div class="section" id="methodology-approach-description">
+<h2>Methodology/ Approach Description<a class="headerlink" href="#methodology-approach-description" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>First Step: How to define AS and IS States?</li>
+</ol>
+<ul class="simple">
+<li>Feeding(in/out), drinking(in/out), outside HomeBase movement ==&gt; AS</li>
+<li>The time gaps of two activity &lt; IST ==&gt; AS</li>
+<li>Complement of AS ==&gt; IS</li>
+<li>QDA/LDA to classify the IS and AS<ul>
+<li>P(food | IS) = 0.01, P(drink | IS) = 0.01, P(sleep | IS) = 0.8,
+P(move | IS) = 0.1, P(digging | IS) = 0.08</li>
+<li>P(food | AS) = 0.3, P(drink | AS) = 0.3, P(sleep | AS) = 0.01,
+P(move | AS) = 0.3, P(digging | AS) = 0.09</li>
+</ul>
+</li>
+</ul>
+<ol class="arabic" start="2">
+<li><p class="first">Second Step: Find the Optimal IST(Inactive State Threshold), so as to
+calculate AS numbers, AS Durations. Inspiration by:</p>
+<ul class="simple">
+<li>Events:</li>
+<li>IST vs AS numbers:</li>
+</ul>
+</li>
+<li><p class="first">Third Step: Use Markov chain to model the transition between events:</p>
+<div class="math">
+\[P(food_{t+1} | drink_{t})\]</div>
+</li>
+<li><p class="first">Fourth Step: Use Hidden Markov to model the transition between events
+for different stages</p>
+</li>
+</ol>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">states</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;AS&#39;</span><span class="p">,</span> <span class="s1">&#39;IS&#39;</span><span class="p">)</span>
+
+<span class="n">observations</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;food&#39;</span><span class="p">,</span> <span class="s1">&#39;water&#39;</span><span class="p">,</span> <span class="s1">&#39;sleep&#39;</span><span class="p">,</span><span class="s1">&#39;movement&#39;</span><span class="p">,</span><span class="s1">&#39;digging&#39;</span><span class="p">)</span>
+
+<span class="n">start_probability</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;AS&#39;</span><span class="p">:</span> <span class="mi">14</span><span class="o">/</span><span class="mi">24</span><span class="p">,</span> <span class="s1">&#39;IS&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="o">/</span><span class="mi">24</span><span class="p">}</span><span class="c1">#based on time</span>
+
+<span class="n">transition_probability</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="s1">&#39;AS&#39;</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;IS&#39;</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">,</span> <span class="s1">&#39;AS&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">},</span>
+   <span class="s1">&#39;IS&#39;</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;IS&#39;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;AS&#39;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">},</span>
+   <span class="p">}</span>
+
+<span class="n">emission_probability</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="s1">&#39;IS&#39;</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;food&#39;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span> <span class="s1">&#39;water&#39;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span> <span class="s1">&#39;sleep&#39;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span> <span class="s1">&#39;movement&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;digging&#39;</span><span class="p">:</span> <span class="mf">0.08</span><span class="p">},</span>
+   <span class="s1">&#39;AS&#39;</span> <span class="p">:</span> <span class="p">{</span><span class="s1">&#39;food&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span> <span class="s1">&#39;water&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span> <span class="s1">&#39;sleep&#39;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span> <span class="s1">&#39;movement&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span> <span class="s1">&#39;digging&#39;</span><span class="p">:</span> <span class="mf">0.09</span><span class="p">},</span>
+   <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="testing-framework-outline">
+<h2>Testing Framework Outline<a class="headerlink" href="#testing-framework-outline" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Main idea: check the reasonability of IST to be the number we choosed
+and the AS probability or Transition probability by testing:</li>
+<li>Examples:<ul>
+<li>For each mice, The AS numbers for Night Time bins &lt; The AS numbers
+of Daytime Bins.</li>
+<li>P(IS|Food) &lt; P(AS|Food)</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="additional-remarks">
+<h2>Additional Remarks:<a class="headerlink" href="#additional-remarks" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Improvement on the definition of AS/IS: whether inside HomeBase
+movement count as AS as well?</li>
+<li>latent variables?</li>
+</ul>
+</div>
+<div class="section" id="references">
+<h2>References:<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://scikit-learn.sourceforge.net/stable/modules/hmm.html">http://scikit-learn.sourceforge.net/stable/modules/hmm.html</a></p>
+<p><a class="reference external" href="https://github.com/hmmlearn/hmmlearn">https://github.com/hmmlearn/hmmlearn</a></p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Hidden_Markov_model">https://en.wikipedia.org/wiki/Hidden_Markov_model</a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Dynamics of AS Patterns</a><ul>
+<li><a class="reference internal" href="#statement-of-problem">Statement of Problem</a></li>
+<li><a class="reference internal" href="#statement-of-statistical-problems">Statement of Statistical Problems</a></li>
+<li><a class="reference internal" href="#exploratory-analysis">Exploratory Analysis</a></li>
+<li><a class="reference internal" href="#data-requirements-description">Data Requirements Description</a></li>
+<li><a class="reference internal" href="#methodology-approach-description">Methodology/ Approach Description</a></li>
+<li><a class="reference internal" href="#testing-framework-outline">Testing Framework Outline</a></li>
+<li><a class="reference internal" href="#additional-remarks">Additional Remarks:</a></li>
+<li><a class="reference internal" href="#references">References:</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Project Report</a><ul>
+      <li>Previous: <a href="path.html" title="previous chapter">Exploration &amp; Path Diversity</a></li>
+      <li>Next: <a href="ultradian.html" title="next chapter">Ultradian Analysis</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/report/dynamics.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, 2016 UC Berkeley MA students.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/report/dynamics.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -52,10 +52,83 @@ Column 1: the mouse number (number depends on strain)
 Column 2: the day number (5-16)
 Column 3: the 2-hour time bin (e.g., value 4 corresponds to hours 4 to 6)</p>
 <p>The remaining 9 columns are the computed features.</p>
-<dl class="docutils">
-<dt>features_data_frame</dt>
- <span class="classifier-delimiter">:</span> <span class="classifier">pandas.DataFrame</span><dd>A dataframe of computed features.</dd>
-</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>features_data_frame</strong> &#8211; A dataframe of computed features.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">pandas.DataFrame</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="mousestyles.data.load_intervals">
+<code class="descclassname">mousestyles.data.</code><code class="descname">load_intervals</code><span class="sig-paren">(</span><em>feature</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mousestyles/data.html#load_intervals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mousestyles.data.load_intervals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a pandas.DataFrame object of project interval data
+for the specified feature.</p>
+<p>There are 5 columns in the dataframe:
+strain: the strain number of the mouse
+mouse: the mouse number in its strain
+day: the day number
+start: the start time
+stop: the stop time</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>feature</strong> (<em>{&quot;AS&quot;, &quot;F&quot;, &quot;IS&quot;, &quot;M_AS&quot;, &quot;M_IS&quot;, &quot;W&quot;}</em>) &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>intervals</strong> &#8211; All data of the specified feature as a dataframe</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pandas.DataFrame</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">AS</span> <span class="o">=</span> <span class="n">load_intervals</span><span class="p">(</span><span class="s1">&#39;AS&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">IS</span> <span class="o">=</span> <span class="n">load_intervals</span><span class="p">(</span><span class="s1">&#39;IS&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="mousestyles.data.load_movement">
+<code class="descclassname">mousestyles.data.</code><code class="descname">load_movement</code><span class="sig-paren">(</span><em>strain</em>, <em>mouse</em>, <em>day</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/mousestyles/data.html#load_movement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mousestyles.data.load_movement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a pandas.DataFrame object of project movement data
+for the specified combination of strain, mouse and day.</p>
+<p>There are 4 columns in the dataframe:
+t: Time coordinates (in seconds)
+x: X coordinates indicating the left-right position of the cage
+y: Y coordinates indicating the front-back position of the cage
+isHB: Boolean indicating whether the point is in the home base or not</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>strain</strong> (<em>int</em>) &#8211; nonnegative integer indicating the strain number</li>
+<li><strong>mouse</strong> (<em>int</em>) &#8211; nonnegative integer indicating the mouse number</li>
+<li><strong>day</strong> (<em>int</em>) &#8211; nonnegative integer indicating the day number</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>movement</strong> &#8211; CT, CX, CY coordinates and home base status
+of the combination of strain, mouse and day</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">pandas.DataFrame</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">movement</span> <span class="o">=</span> <span class="n">load_movement</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">movement</span> <span class="o">=</span> <span class="n">load_movement</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </div>
