@@ -2,7 +2,6 @@ from __future__ import print_function, absolute_import, division
 
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 from scipy.stats import chi2
@@ -29,8 +28,8 @@ def test_aggregate_interval():
 
     with pytest.raises(ValueError) as msg4:
         aggregate_interval(1, 1, "M_IS", -30)
-    assert msg4.value.args[0] ==
-    'Bin width (minutes) must be a non-negative integer below 1440'
+    right_msg = 'Bin width (minutes) must be a non-negative integer below 1440'
+    assert msg4.value.args[0] == right_msg
     result = aggregate_interval(0, 1, "AS", 30)
     assert type(result) is pd.core.series.Series
     assert all(result >= 0) is True
