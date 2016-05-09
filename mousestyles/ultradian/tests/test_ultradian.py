@@ -24,8 +24,8 @@ def test_aggregate_interval():
 
     with pytest.raises(ValueError) as msg3:
         ultradian.aggregate_interval(1, 1, "A", 30)
-    assert msg3.value.args[
-        0] == 'Input value must in {"AS", "F", "M_AS", "M_IS", "W"}'
+    right_msg_1 = 'Input value must in {"AS", "F", M_AS", "M_IS", "W"}'
+    assert msg3.value.args[0] == right_msg_1
 
     with pytest.raises(ValueError) as msg4:
         ultradian.aggregate_interval(1, 1, "M_IS", -30)
@@ -89,8 +89,9 @@ def test_strain_seasonal():
 # check the outcome range of mix_strain, the result is a p-value, so it's
 # between 0 and 1
 
-
-def test_mix_strain():
+def test_mix_strain(data):
     data = ultradian.aggregate_data("AS", 30)
-    result = ultradian.mix_strain(data, feature)
-    assert (result > 0) and (result < 1)
+    result = ultradian.mix_strain(data, "AS")
+    assert result > 0
+    assert result < 1
+
